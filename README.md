@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ![build status](https://travis-ci.org/mutexkid/android-studio-robolectric-example.svg)
 
 ## Android Studio Robolectric Test Example
@@ -89,3 +90,7 @@ public class MyActivityTest {
 8. Write Robolectric Tests! For more intel on how to write tests using robolectric + assertJ, check out [http://blog.bignerdranch.com/2583-testing-the-android-way/](http://blog.bignerdranch.com/2583-testing-the-android-way/)
 
 
+=======
+# FriendlyGreenHouse
+軟工專案-智慧型溫室系統的Android App部分
+>>>>>>> 574fd5505e32170f89af50db84c1ff2bf00f0338
