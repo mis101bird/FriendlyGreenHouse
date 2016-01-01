@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.friendlygreenhouse.application" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:name=".api.AppConfig">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+             >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ChangeFlowerActivity"
+            android:label="變更花種" >
+
+        </activity>
+        <activity
+            android:name=".CustomerActivity"
+            android:label="自動設定" >
+        </activity>
+        <activity
+            android:name=".DiaryActivity"
+            android:label="我的養花日誌" >
+        </activity>
+        <activity
+            android:name=".DictionaryActivity"
+            android:label="養花大百科" >
+        </activity>
+        <activity
+            android:name=".ImmediateActivity"
+            android:label="即時操作" >
+        </activity>
+        <activity
+            android:name=".SettingActivity"
+            android:label="設定" >
+        </activity>
+    </application>
+
+</manifest>

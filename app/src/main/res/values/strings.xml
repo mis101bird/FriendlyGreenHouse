@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FriendlyGreenHouse</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="change_flower">變更花種</string>
+    <string name="immediately">即時功能</string>
+    <string name="dictionary">養花大百科</string>
+    <string name="diary">我的養花日誌</string>
+    <string name="setting">設定</string>
+
+</resources>
