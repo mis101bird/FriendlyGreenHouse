@@ -24,3 +24,9 @@ SQLite操作class參考專案的LocalDatabase/SQLiteHandler.java；Activity介�
 * 養花大百科
 
 呼叫API的method: api/CallAPIhelper.java的getDictionaryFlowers()需要實作；Activity介面在DictionaryActivity.java
+
+DeadLine
+------
+* 整合測試(硬體+軟體皆要完成) : 星期一晚上6:00前
+* 驗收測試(+環境(地下室)測試) + 測試文件報告 : 星期二晚上6:00前
+* Demo Time : 星期三
