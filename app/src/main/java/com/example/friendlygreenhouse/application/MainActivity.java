@@ -5,12 +5,18 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.friendlygreenhouse.application.api.AppConfig;
+import com.example.friendlygreenhouse.application.api.CallAPIhelper;
+
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends Activity {
 
@@ -20,9 +26,8 @@ public class MainActivity extends Activity {
     TextView status_soilwater;
     TextView status_airwater;
 
-    TextView setting_temp;
     TextView setting_type;
-    TextView setting_water;
+    Timer timer=new Timer();
 
     HashMap<String,String> flowerData=new HashMap<>();
 
@@ -31,14 +36,15 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         photo = (ImageView)findViewById(R.id.photo);
 
         status_temp = (TextView)findViewById(R.id.evn_temperature_value);
         status_soilwater = (TextView)findViewById(R.id.soil_water_value);
         status_airwater = (TextView)findViewById(R.id.air_water_value);
 
-        setting_temp = (TextView)findViewById(R.id.temperature_status);
-        setting_water = (TextView)findViewById(R.id.water_status_value);
         setting_type = (TextView)findViewById(R.id.setting_status_value);
 
         Button change_flower = (Button) findViewById(R.id.change_flower);
@@ -46,9 +52,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent info = new Intent();
-                info.setClass(getParent(), ChangeFlowerActivity.class);
+                info.setClass(getBaseContext(), ChangeFlowerActivity.class);
                 startActivity(info);
-                MainActivity.this.finish();
+
 
             }
         });
@@ -57,9 +63,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent info = new Intent();
-                info.setClass(getParent(),ImmediateActivity.class);
+                info.setClass(getBaseContext(), ImmediateActivity.class);
                 startActivity(info);
-                MainActivity.this.finish();
+
 
             }
         });
@@ -68,9 +74,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent info = new Intent();
-                info.setClass(getParent(),DictionaryActivity.class);
+                info.setClass(getBaseContext(), DictionaryActivity.class);
                 startActivity(info);
-                MainActivity.this.finish();
+
 
             }
         });
@@ -79,9 +85,9 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent info = new Intent();
-                info.setClass(getParent(),DiaryActivity.class);
+                info.setClass(getBaseContext(), DiaryActivity.class);
                 startActivity(info);
-                MainActivity.this.finish();
+
 
             }
         });
@@ -90,36 +96,68 @@ public class MainActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent info = new Intent();
-                info.setClass(getParent(),SettingActivity.class);
+                info.setClass(getBaseContext(), SettingActivity.class);
                 startActivity(info);
-                MainActivity.this.finish();
+
 
             }
         });
     }
-    public void changeStatusBoard(){
-       new StatusLoading().execute();
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        changeStatusBoard();//刷新Board
     }
-    private class StatusLoading extends AsyncTask<Void, Void, Void> { //Add the first 10 items
+
+    public void changeStatusBoard(){
+
+        timer.schedule(new TimerTask() {
+            CallAPIhelper helper = new CallAPIhelper();
+
+            @Override
+            public void run() {
+                //helper.getMainStatus(getBaseContext(),AppConfig.getUserID());
+                Log.i("getMainStatus", "in Time on Setting: ");
+                helper.getMainStatus(getBaseContext(), "NTOU");
+                new ChangeUIstatus().execute();
+
+            }
+        }, 1000);
+    }
+    class ChangeUIstatus extends AsyncTask{
 
         @Override
-        protected Void doInBackground(Void... params) {
-            while(true){
-                flowerData.clear();
-                //解析花狀態的JSON的內容
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-                    Log.i("reset status Error",e.getMessage());
-                }
+        protected Object doInBackground(Object[] params) {
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            if(AppConfig.getSetting()!=null){
+                status_airwater.setText(AppConfig.getSetting());
+                Log.i("getMainStatus", "Setting: "+AppConfig.getSetting());
+            }
+            if(AppConfig.getSoilHum()!=null){
+                status_soilwater.setText(AppConfig.getSoilHum());
+                Log.i("getMainStatus", "Setting: " + AppConfig.getSoilHum());
+            }
+            if(AppConfig.getAirHum()!=null){
+                status_airwater.setText(AppConfig.getAirHum());
+                Log.i("getMainStatus", "Setting: " + AppConfig.getAirHum());
+            }
+            if(AppConfig.getTemp()!=null){
+                status_temp.setText(AppConfig.getTemp());
+                Log.i("getMainStatus", "Setting: " +AppConfig.getTemp());
             }
 
         }
-
-        @Override
-        protected void onPostExecute(Void a) {
+    }
 
 
-        }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timer.cancel();
     }
 }

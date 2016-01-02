@@ -15,11 +15,15 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:name=".api.AppConfig">
+        android:name=".api.AppConfig"
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-             >
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -27,28 +31,46 @@
         </activity>
         <activity
             android:name=".ChangeFlowerActivity"
-            android:label="變更花種" >
+            android:label="變更花種"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".MainActivity"
+            android:launchMode="singleTask">
 
         </activity>
         <activity
             android:name=".CustomerActivity"
-            android:label="自動設定" >
+            android:label="自動設定"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".DiaryActivity"
-            android:label="我的養花日誌" >
+            android:label="我的養花日誌"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".DictionaryActivity"
-            android:label="養花大百科" >
+            android:label="養花大百科"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".ImmediateActivity"
-            android:label="即時操作" >
+            android:label="即時操作"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
         <activity
             android:name=".SettingActivity"
-            android:label="設定" >
+            android:label="設定"
+            android:windowSoftInputMode="adjustPan"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTask">
         </activity>
     </application>
 
