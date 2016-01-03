@@ -13,4 +13,9 @@
     android:weightSum="1"
     android:background="@drawable/background">
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/listView"
+        android:layout_gravity="center_horizontal" />
 </LinearLayout>
