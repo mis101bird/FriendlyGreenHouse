@@ -117,7 +117,7 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="106dp"
+                        android:layout_width="159dp"
                         android:layout_height="45dp"
                         android:text="碩取資料。。"
                         android:id="@+id/setting_status_value"

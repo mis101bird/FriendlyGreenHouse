@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.util.Log;
 
+import com.example.friendlygreenhouse.application.api.AppConfig;
+
 public class SessionManager {
 	// LogCat tag
 	private static String TAG = SessionManager.class.getSimpleName();
@@ -32,7 +34,7 @@ public class SessionManager {
 	public void setLogin(boolean isLoggedIn) {
 
 		editor.putBoolean(KEY_IS_LOGGEDIN, isLoggedIn);
-
+		editor.putString("UserID", AppConfig.getUserID());
 		// commit changes
 		editor.commit();
 
@@ -41,5 +43,8 @@ public class SessionManager {
 	
 	public boolean isLoggedIn(){
 		return pref.getBoolean(KEY_IS_LOGGEDIN, false);
+	}
+	public String getUserID(){
+		return pref.getString("UserID","NTOU");
 	}
 }

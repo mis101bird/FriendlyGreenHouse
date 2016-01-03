@@ -26,7 +26,7 @@ public class AppConfig extends Application{
     private static String i_fan;
     private static String i_photo;
     private static String i_water;
-    private static String userID="NTOU";
+    private static String userID=null;
     private static HashMap<String,String> flowSpecies=null;
     private static JSONObject control=null;
     private static JSONArray Flowerdictionary=null;

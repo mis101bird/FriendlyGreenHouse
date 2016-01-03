@@ -14,13 +14,13 @@ import static org.assertj.android.api.Assertions.assertThat;
 
 @RunWith(RobolectricGradleTestRunner.class)
 @Config(constants = BuildConfig.class, sdk = 21)
-public class MainActivityTest {
+public class BroadActivityTest {
 
-    private MainActivity mActivity;
+    private BoardActivity mActivity;
     private CallAPIhelper apihelper;
     @Before
     public void setup() {
-        mActivity = Robolectric.buildActivity(MainActivity.class).create().get();
+        mActivity = Robolectric.buildActivity(BoardActivity.class).create().get();
         apihelper=new CallAPIhelper();
     }
 

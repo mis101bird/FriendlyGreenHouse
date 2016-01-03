@@ -20,6 +20,6 @@ public class DictionaryActivity extends Activity {
         //呼叫所有養花大百科的資料
         JSONArray dic=AppConfig.getFlowerdictionary();
         Log.i("DictionaryActivity",dic.toString());
-        
+
     }
 }
