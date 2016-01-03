@@ -11,6 +11,133 @@
     android:orientation="vertical"
     tools:context=".SettingActivity"
     android:weightSum="1"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:gravity="center_horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="推 播 通 知"
+        android:id="@+id/textView8"
+        android:textSize="20dp" />
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:weightSum="1">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="換盆提醒"
+            android:id="@+id/change_pot"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.45"
+            android:button="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:textSize="18dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_gravity="right"
+        android:weightSum="1">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="施肥提醒"
+            android:id="@+id/fertilize"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.45"
+            android:button="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:textSize="18dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center_horizontal"
+        android:weightSum="1">
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="環境不適合提醒"
+            android:id="@+id/bad_environment"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.43"
+            android:button="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:checked="true"
+            android:textSize="18dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="自　動　化　操　作"
+        android:id="@+id/textView9"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:textSize="20dp"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="384dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar2" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:weightSum="1" >
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="客製化"
+            android:id="@+id/custom"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.45"
+            android:button="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:clickable="true"
+            android:textSize="18dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:weightSum="1" >
+
+        <Switch
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="智慧化"
+            android:id="@+id/knowledge"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.45"
+            android:button="@drawable/abc_ic_ab_back_mtrl_am_alpha"
+            android:checked="true"
+            android:textSize="18dp"/>
+    </LinearLayout>
 
 </LinearLayout>

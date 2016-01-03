@@ -119,7 +119,7 @@
                     <TextView
                         android:layout_width="106dp"
                         android:layout_height="45dp"
-                        android:text="客製化"
+                        android:text="碩取資料。。"
                         android:id="@+id/setting_status_value"
                         android:textColor="#3e5f73"
                         android:textSize="20dp"
@@ -179,7 +179,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="23度(良好)"
+                            android:text="碩取資料。。"
                             android:id="@+id/evn_temperature_value"
                             android:textColor="#3e5f73"
                             android:textSize="15dp"
@@ -201,7 +201,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="50%(稍濕)"
+                            android:text="碩取資料。。"
                             android:id="@+id/air_water_value"
                             android:textColor="#3e5f73"
                             android:textSize="15dp"
@@ -222,7 +222,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="60%(濕)"
+                            android:text="碩取資料。。"
                             android:id="@+id/soil_water_value"
                             android:textColor="#3e5f73"
                             android:textSize="15dp"

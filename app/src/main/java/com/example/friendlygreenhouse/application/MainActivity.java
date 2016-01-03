@@ -29,15 +29,19 @@ public class MainActivity extends Activity {
     TextView setting_type;
     Timer timer=new Timer();
 
-    HashMap<String,String> flowerData=new HashMap<>();
+
+    CallAPIhelper helper = new CallAPIhelper();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
+        //初始化先下載資料
+        helper.getFlowerSpecies(this);
+        helper.getMyFlowerSpecies(this, AppConfig.getUserID());
+        helper.getControl(getBaseContext(), AppConfig.getUserID());
+        helper.getDictionaryFlower(getBaseContext());
 
         photo = (ImageView)findViewById(R.id.photo);
 
@@ -119,11 +123,12 @@ public class MainActivity extends Activity {
             public void run() {
                 //helper.getMainStatus(getBaseContext(),AppConfig.getUserID());
                 Log.i("getMainStatus", "in Time on Setting: ");
-                helper.getMainStatus(getBaseContext(), "NTOU");
+                helper.getMainStatus(getBaseContext(), AppConfig.getUserID());
+                helper.getControl(getBaseContext(), AppConfig.getUserID());
                 new ChangeUIstatus().execute();
 
             }
-        }, 1000);
+        }, 500);
     }
     class ChangeUIstatus extends AsyncTask{
 
@@ -135,19 +140,23 @@ public class MainActivity extends Activity {
         @Override
         protected void onPostExecute(Object o) {
             if(AppConfig.getSetting()!=null){
-                status_airwater.setText(AppConfig.getSetting());
+                if(AppConfig.getSetting().equals("automatic")){
+                    setting_type.setText("智慧化");
+                }else{
+                    setting_type.setText("客製化");
+                }
                 Log.i("getMainStatus", "Setting: "+AppConfig.getSetting());
             }
             if(AppConfig.getSoilHum()!=null){
-                status_soilwater.setText(AppConfig.getSoilHum());
+                status_soilwater.setText(AppConfig.getSoilHum()+"%");
                 Log.i("getMainStatus", "Setting: " + AppConfig.getSoilHum());
             }
             if(AppConfig.getAirHum()!=null){
-                status_airwater.setText(AppConfig.getAirHum());
+                status_airwater.setText(AppConfig.getAirHum()+"%");
                 Log.i("getMainStatus", "Setting: " + AppConfig.getAirHum());
             }
             if(AppConfig.getTemp()!=null){
-                status_temp.setText(AppConfig.getTemp());
+                status_temp.setText(AppConfig.getTemp()+"度");
                 Log.i("getMainStatus", "Setting: " +AppConfig.getTemp());
             }
 

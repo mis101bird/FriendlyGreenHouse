@@ -4,7 +4,13 @@ import android.app.Application;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.HashMap;
 
 /**
  * Created by ser on 2016/1/1.
@@ -20,7 +26,34 @@ public class AppConfig extends Application{
     private static String i_fan;
     private static String i_photo;
     private static String i_water;
-    private static String userID;
+    private static String userID="NTOU";
+    private static HashMap<String,String> flowSpecies=null;
+    private static JSONObject control=null;
+    private static JSONArray Flowerdictionary=null;
+
+    public static JSONArray getFlowerdictionary() {
+        return Flowerdictionary;
+    }
+
+    public static void setFlowerdictionary(JSONArray flowerdictionary) {
+        Flowerdictionary = flowerdictionary;
+    }
+
+    public static JSONObject getControl() {
+        return control;
+    }
+
+    public static void setControl(JSONObject control) {
+        AppConfig.control = control;
+    }
+
+    public static HashMap<String, String> getFlowSpecies() {
+        return flowSpecies;
+    }
+
+    public static void setFlowSpecies(HashMap<String, String> flowSpecies) {
+        AppConfig.flowSpecies = flowSpecies;
+    }
 
     public static String getI_fan() {
         return i_fan;

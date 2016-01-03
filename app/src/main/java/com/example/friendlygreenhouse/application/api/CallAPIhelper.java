@@ -9,10 +9,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -137,7 +139,7 @@ public class CallAPIhelper {
             Log.i("Internet Error", "user phone didn't open internet.");
         }
     }
-    public void getFlowerSpecies(Context context,String userID) {
+    public void getMyFlowerSpecies(Context context,String userID) {
 
         if (ifInternetOpen(context)) {
 
@@ -175,11 +177,36 @@ public class CallAPIhelper {
                             try {
                                 AppConfig.setAirHum((String) response.get("airhum"));
                                 AppConfig.setSetting((String) response.get("nowstate"));
-                                AppConfig.setSoilHum((String)response.get("soilhum"));
-                                AppConfig.setTemp((String)response.get("tem"));
+                                AppConfig.setSoilHum((String) response.get("soilhum"));
+                                AppConfig.setTemp((String) response.get("tem"));
                             } catch (JSONException e) {
                                 Log.i("getMainStatus", e.getMessage());
                             }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("請檢察wifi認證或請重開App", error.getMessage());
+                        }
+                    }
+            );
+            requeseQueue.add(simpleRequest);
+        } else {
+            Log.i("Internet Error", "user phone didn't open internet.");
+        }
+    }
+    public void getDictionaryFlower(Context context) {
+
+        if (ifInternetOpen(context)) {
+
+            JsonArrayRequest simpleRequest = new JsonArrayRequest(Request.Method.GET, host+"/FriendlyGreenHouseBackEnd/allEncyclopedia",
+                    new ResponseAndContext<JSONArray>(context) {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.i("getDictionaryFlower", response.toString());
+                            AppConfig.setFlowerdictionary(response);
                         }
                     },
                     new Response.ErrorListener() {
@@ -260,6 +287,72 @@ public class CallAPIhelper {
         }
 
     }
+    public void getControl(Context context,String userID){
+
+
+        if (ifInternetOpen(context)) {
+
+            JsonObjectRequest simpleRequest = new JsonObjectRequest(Request.Method.GET, host+"/FriendlyGreenHouseBackEnd/automatic/getAutomaticState?userID="+userID,
+                    new ResponseAndContext<JSONObject>(context) {
+
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            Log.i("getControl", response.toString());
+                            AppConfig.setControl(response);
+
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("請檢察wifi認證或請重開App", error.getMessage());
+                        }
+                    }
+            );
+            requeseQueue.add(simpleRequest);
+        } else {
+            Log.i("Internet Error", "user phone didn't open internet.");
+        }
+
+    }
+    public void getFlowerSpecies(Context context){
+
+        if (ifInternetOpen(context)) {
+
+            JsonArrayRequest simpleRequest = new JsonArrayRequest(Request.Method.GET, host+"/FriendlyGreenHouseBackEnd/allEncyclopedia",
+                    new ResponseAndContext<JSONArray>(context) {
+
+                        @Override
+                        public void onResponse(JSONArray response) {
+                            Log.i("getFlowerSpecies", response.toString());
+                            HashMap<String,String> responses=new HashMap<>();
+                            for(int i = 0;i < response.length(); i++)
+                            {
+                                try {
+                                    JSONObject data = response.getJSONObject(i);
+                                    responses.put(data.getString("flower_name"),data.getString("flowerID"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                            Log.i("getFlowerSpecies", "HashMap size: "+responses.size());
+                            AppConfig.setFlowSpecies(responses);
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.i("請檢察wifi認證或請重開App", error.getMessage());
+                        }
+                    }
+            );
+            requeseQueue.add(simpleRequest);
+        } else {
+            Log.i("Internet Error", "user phone didn't open internet.");
+        }
+
+    }
     public void setCustomDetailSetting(Context context,String userID,String lowTem,String highTem,String lowHum,String highHum){
 
 
@@ -274,7 +367,7 @@ public class CallAPIhelper {
                             try {
                                 if(((String)response.get("status")).equals("OK")){
                                     Log.i("setCustomSetting", "Change Successful");
-                                    Toast.makeText(context,"成功設定客製化狀態",Toast.LENGTH_LONG);
+                                    Toast.makeText(context,"成功設定客製化狀態",Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 Log.i("sendChangeFlowerOrder", e.getMessage());
@@ -307,7 +400,7 @@ public class CallAPIhelper {
                             try {
                                 if(((String)response.get("status")).equals("OK")){
                                     Log.i("setImmediateSetting", "Change Successful");
-                                    Toast.makeText(context,"成功設定即時狀態",Toast.LENGTH_LONG);
+                                    Toast.makeText(context,"成功設定即時狀態",Toast.LENGTH_LONG).show();
                                 }
                             } catch (JSONException e) {
                                 Log.i("sendChangeFlowerOrder", e.getMessage());
@@ -327,6 +420,7 @@ public class CallAPIhelper {
         }
 
     }
+
 public static HashMap<String,String> getDictionaryFlowers(Context context){
     HashMap<String,String> DictionaryResult=new HashMap<>();
     // HashMap<String(花名),String(URL)>

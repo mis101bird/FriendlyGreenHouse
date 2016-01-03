@@ -39,7 +39,7 @@
         </activity>
         <activity
             android:name=".CustomerActivity"
-            android:label="自動設定"
+            android:label="設定"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
             android:launchMode="singleTask">
@@ -49,28 +49,32 @@
             android:label="我的養花日誌"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".DictionaryActivity"
             android:label="養花大百科"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".ImmediateActivity"
             android:label="即時操作"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity">
         </activity>
         <activity
             android:name=".SettingActivity"
             android:label="設定"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait"
-            android:launchMode="singleTask">
+            android:launchMode="singleTask"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 
