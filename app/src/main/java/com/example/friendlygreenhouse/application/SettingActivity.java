@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
@@ -25,6 +26,8 @@ public class SettingActivity extends Activity {
     Switch custom;
     Switch knowledge;
 
+    Button detail;
+
     boolean initFlag=true;
     CallAPIhelper helper=new CallAPIhelper();
 
@@ -34,6 +37,7 @@ public class SettingActivity extends Activity {
         setContentView(R.layout.activity_setting);
 
         bad_environment=(Switch)findViewById(R.id.bad_environment);
+        detail=(Button)findViewById(R.id.detail);
         bad_environment.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 
             @Override
@@ -79,8 +83,10 @@ public class SettingActivity extends Activity {
         try {
             if(AppConfig.getControl().get("custom").equals("true")){
                 custom.setChecked(true);
+                detail.setVisibility(View.VISIBLE);
             }else{
                 custom.setChecked(false);
+                detail.setVisibility(View.INVISIBLE);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -91,13 +97,13 @@ public class SettingActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked &&initFlag==false) {
 
+                    helper.setCustom(getBaseContext(), AppConfig.getUserID());
                     knowledge.setChecked(false);
-                    Intent info = new Intent();
-                    info.setClass(getBaseContext(), CustomerActivity.class);
-                    startActivity(info);
+                    detail.setVisibility(View.VISIBLE);
 
                 }else{
                     knowledge.setChecked(true);
+                    detail.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -121,9 +127,17 @@ public class SettingActivity extends Activity {
 
                     helper.setAuto(getBaseContext(), AppConfig.getUserID());
                     custom.setChecked(false);
-                }else{
+                } else {
 
                 }
+            }
+        });
+        detail.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent info = new Intent();
+                info.setClass(getBaseContext(), CustomerActivity.class);
+                startActivity(info);
             }
         });
 

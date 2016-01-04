@@ -51,7 +51,7 @@ public class CustomerActivity extends Activity {
                     highTem_v=highTem.getText().toString();
                 }
                 helper.setCustomDetailSetting(getBaseContext(), AppConfig.getUserID(),lowTem_v,highTem_v,lowHum_v,highHum_v);
-                helper.setCustom(getBaseContext(), AppConfig.getUserID());
+
                 helper.getControl(getBaseContext(), AppConfig.getUserID());
                 CustomerActivity.this.finish();
             }

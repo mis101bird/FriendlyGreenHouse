@@ -140,4 +140,11 @@
             android:textSize="18dp"/>
     </LinearLayout>
 
+    <Button
+        android:layout_width="349dp"
+        android:layout_height="wrap_content"
+        android:text="客製化設定"
+        android:id="@+id/detail"
+        android:background="@drawable/abc_popup_background_mtrl_mult" />
+
 </LinearLayout>
