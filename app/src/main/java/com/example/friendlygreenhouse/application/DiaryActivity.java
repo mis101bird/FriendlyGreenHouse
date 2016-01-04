@@ -48,7 +48,7 @@ public class DiaryActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-        SQLiteHandler friendDbOpenHelper =
+        SQLiteHandler friendDbOpenHelper = 
                 new SQLiteHandler(getApplicationContext(), DB_FILE, null, 1);
         mFriendDb = friendDbOpenHelper.getWritableDatabase();
 
