@@ -2,29 +2,28 @@ package com.example.friendlygreenhouse.application;
 
 import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.DialogInterface;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
-import android.os.Build;
+
 import com.example.friendlygreenhouse.application.LocalDatabase.SQLiteHandler;
 
-import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
+import java.util.List;
 
 /**
  * Created by ser on 2015/12/31.
@@ -42,6 +41,7 @@ public class DiaryActivity extends Activity{
     private Button mBtnAdd,
             mBtnQuery,
             mBtnList;
+    private  final List<String> dd=new ArrayList<String>();;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +80,34 @@ public class DiaryActivity extends Activity{
         mBtnAdd.setOnClickListener(btnAddOnClick);
         mBtnQuery.setOnClickListener(btnQueryOnClick);
         mBtnList.setOnClickListener(btnListOnClick);
+
+
+        Cursor c = mFriendDb.query(true, DB_TABLE, new String[]{"name", "sex",
+                "address"}, 	null, null, null, null, null, null);
+
+        if (c == null)
+            return;
+
+        if (c.getCount() == 0) {
+            mEdtList.setText("");
+            Toast.makeText(DiaryActivity.this, "沒有資料", Toast.LENGTH_LONG)
+                    .show();
+        }
+        else {
+            c.moveToFirst();
+            dd.add(c.getString(0) + c.getString(1)  + c.getString(2));
+
+            while (c.moveToNext())
+                dd.add(c.getString(0) + c.getString(1)  +
+                        c.getString(2));
+        }
+
+        ListView list=(ListView) findViewById(R.id.listView2);
+
+        ListAdapter ad = new ArrayAdapter(this, android.R.layout.simple_list_item_1,dd);
+
+        list.setAdapter(ad);
+
     }
 /*
     @Override
