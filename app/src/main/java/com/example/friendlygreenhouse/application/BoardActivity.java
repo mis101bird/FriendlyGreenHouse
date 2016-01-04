@@ -2,8 +2,11 @@ package com.example.friendlygreenhouse.application;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,6 +17,8 @@ import android.widget.TextView;
 import com.example.friendlygreenhouse.application.api.AppConfig;
 import com.example.friendlygreenhouse.application.api.CallAPIhelper;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -42,13 +47,13 @@ public class BoardActivity extends Activity {
         helper.getMyFlowerSpecies(this, AppConfig.getUserID());
         helper.getControl(getBaseContext(), AppConfig.getUserID());
         helper.getDictionaryFlower(getBaseContext());
+        helper.getphoto(getBaseContext(), AppConfig.getUserID());
 
         photo = (ImageView)findViewById(R.id.photo);
 
         status_temp = (TextView)findViewById(R.id.evn_temperature_value);
         status_soilwater = (TextView)findViewById(R.id.soil_water_value);
         status_airwater = (TextView)findViewById(R.id.air_water_value);
-
         setting_type = (TextView)findViewById(R.id.setting_status_value);
 
         Button change_flower = (Button) findViewById(R.id.change_flower);
@@ -128,7 +133,7 @@ public class BoardActivity extends Activity {
                 new ChangeUIstatus().execute();
 
             }
-        }, 500);
+        }, 100);
     }
     class ChangeUIstatus extends AsyncTask{
 
@@ -158,6 +163,10 @@ public class BoardActivity extends Activity {
             if(AppConfig.getTemp()!=null){
                 status_temp.setText(AppConfig.getTemp()+"度");
                 Log.i("getMainStatus", "Setting: " +AppConfig.getTemp());
+            }
+            if(AppConfig.getPhoto()!=null){
+                photo.setImageBitmap(AppConfig.getPhoto());
+                Log.i("getMainStatus", "Setting: " +"Set photo");
             }
 
         }

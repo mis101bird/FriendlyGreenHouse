@@ -91,9 +91,11 @@ public class SettingActivity extends Activity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked &&initFlag==false) {
 
+                    knowledge.setChecked(false);
                     Intent info = new Intent();
                     info.setClass(getBaseContext(), CustomerActivity.class);
                     startActivity(info);
+
                 }else{
                     knowledge.setChecked(true);
                 }
@@ -119,6 +121,8 @@ public class SettingActivity extends Activity {
 
                     helper.setAuto(getBaseContext(), AppConfig.getUserID());
                     custom.setChecked(false);
+                }else{
+
                 }
             }
         });

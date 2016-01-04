@@ -64,4 +64,10 @@ public class ImmediateActivity extends Activity {
         });
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        CallAPIhelper helper=new CallAPIhelper();
+        helper.getphoto(getBaseContext(),AppConfig.getUserID());
+    }
 }
