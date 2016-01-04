@@ -11,11 +11,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
 import com.example.friendlygreenhouse.application.LocalDatabase.SessionManager;
 import com.example.friendlygreenhouse.application.api.AppConfig;
 import com.example.friendlygreenhouse.application.api.CallAPIhelper;
@@ -84,25 +89,38 @@ public class MainActivity extends Activity {
 	 * */
 	private void checkLogin(final String account, final String password) {
 		// Tag used to cancel the request
-		pDialog.setMessage("Logging in ...");
+		pDialog.setMessage("登入中 ...");
 		showDialog();
-		helper.getUserID(getBaseContext(),account,password);
-		if(AppConfig.getUserID()!=null){
-			hideDialog();
-			session.setLogin(true);
 
-			// Launch main activity
-			Intent intent = new Intent(MainActivity.this,
-					BoardActivity.class);
-			startActivity(intent);
-			finish();
-		}else {
-			hideDialog();
-			Toast.makeText(getApplicationContext(),
-					"請再嘗試登入", Toast.LENGTH_LONG).show();
-		}
+		StringRequest simpleRequest = new StringRequest(Request.Method.GET, "http://140.121.197.132:8080/FriendlyGreenHouseBackEnd/loginValidation/VerificateAccount?account=" + account + "&password=" + password,
+				new Response.Listener<String>() {
+					@Override
+					public void onResponse(String response) {
+						hideDialog();
+						if(!response.equals("false")){
+							session.setLogin(true);
+
+							// Launch main activity
+							Intent intent = new Intent(MainActivity.this,
+									BoardActivity.class);
+							startActivity(intent);
+							finish();
+						}else{
+							Toast.makeText(getBaseContext(),"帳號或密碼錯誤，請再輸入一次",Toast.LENGTH_LONG).show();
+						}
+					}
+				},
+				new Response.ErrorListener() {
+					@Override
+					public void onErrorResponse(VolleyError error) {
+						Log.i("請檢察wifi認證或請重開App", error.getMessage());
+						hideDialog();
+					}
+				}
+		);
+		AppConfig.getInstance().getRequestQueue().add(simpleRequest);
+
 	}
-
 	private void showDialog() {
 		if (!pDialog.isShowing())
 			pDialog.show();

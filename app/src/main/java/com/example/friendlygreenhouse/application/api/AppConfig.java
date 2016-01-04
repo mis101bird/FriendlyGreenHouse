@@ -1,6 +1,7 @@
 package com.example.friendlygreenhouse.application.api;
 
 import android.app.Application;
+import android.graphics.Bitmap;
 import android.util.Log;
 
 import com.android.volley.RequestQueue;
@@ -30,6 +31,15 @@ public class AppConfig extends Application{
     private static HashMap<String,String> flowSpecies=null;
     private static JSONObject control=null;
     private static JSONArray Flowerdictionary=null;
+    private static Bitmap photo;
+
+    public static Bitmap getPhoto() {
+        return photo;
+    }
+
+    public static void setPhoto(Bitmap photo) {
+        AppConfig.photo = photo;
+    }
 
     public static JSONArray getFlowerdictionary() {
         return Flowerdictionary;

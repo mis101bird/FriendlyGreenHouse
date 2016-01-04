@@ -1,6 +1,9 @@
 package com.example.friendlygreenhouse.application.api;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.ConnectivityManager;
 import android.util.Log;
 import android.widget.Toast;
@@ -9,10 +12,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.friendlygreenhouse.application.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -50,7 +55,7 @@ public class CallAPIhelper {
                                     Log.i("sendChangeFlowerOrder", "Change Successful");
                                     Toast.makeText(context,"成功更改花種狀態",Toast.LENGTH_LONG);
                                 }
-                            } catch (JSONException e) {
+                            }catch (JSONException e) {
                                 Log.i("sendChangeFlowerOrder", e.getMessage());
                             }
                         }
@@ -219,6 +224,41 @@ public class CallAPIhelper {
             requeseQueue.add(simpleRequest);
         } else {
             Log.i("Internet Error", "user phone didn't open internet.");
+        }
+    }
+    public void getphoto(Context context,String userID) {
+
+        if (ifInternetOpen(context)) {
+
+            ImageRequest imageRequest = new ImageRequest(
+
+                    "http://140.121.197.132:8080/FriendlyGreenHouseBackEnd/getPhotoServlet?userID="+userID,
+
+                    new Response.Listener<Bitmap>() {
+
+                        @Override
+
+                        public void onResponse(Bitmap response) {
+
+                            Log.i("getphoto","Download Successful");
+                            AppConfig.setPhoto(response);
+
+                        }
+
+                    }, 160, 150, Bitmap.Config.RGB_565, new Response.ErrorListener() {
+
+                @Override
+
+                public void onErrorResponse(VolleyError error) {
+
+                 Log.i("getphoto","Download Error:"+error.getMessage());
+                }
+
+            });
+            requeseQueue.add(imageRequest);
+        }else{
+            Resources res = context.getResources();
+            AppConfig.setPhoto(BitmapFactory.decodeResource(res, R.drawable.camera));
         }
     }
     public void getImmediate(Context context,String userID) {

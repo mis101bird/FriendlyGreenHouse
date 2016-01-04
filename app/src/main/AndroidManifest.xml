@@ -22,7 +22,7 @@
         android:label="@string/app_name">
         <activity
             android:name=".MainActivity"
-            android:label="登入FriendlyGreenHouse"
+            android:label="FriendlyGreenHouse"
             android:screenOrientation="portrait"
             android:launchMode="singleTask">
             <intent-filter>

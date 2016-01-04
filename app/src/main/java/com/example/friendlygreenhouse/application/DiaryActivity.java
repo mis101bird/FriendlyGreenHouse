@@ -48,7 +48,8 @@ public class DiaryActivity extends Activity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-        SQLiteHandler friendDbOpenHelper = new SQLiteHandler(getApplicationContext(), DB_FILE, null, 1);
+        SQLiteHandler friendDbOpenHelper =
+                new SQLiteHandler(getApplicationContext(), DB_FILE, null, 1);
         mFriendDb = friendDbOpenHelper.getWritableDatabase();
 
         // 檢查資料表是否已經存在，如果不存在，就建立一個。
