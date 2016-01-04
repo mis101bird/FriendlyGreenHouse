@@ -13,7 +13,7 @@ import static org.assertj.android.api.Assertions.assertThat;
 
 
 @RunWith(RobolectricGradleTestRunner.class)
-@Config(constants = BuildConfig.class, sdk = 21)
+@Config(constants = BuildConfig.class, sdk = 22)
 public class BroadActivityTest {
 
     private BoardActivity mActivity;
