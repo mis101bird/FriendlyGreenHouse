@@ -41,7 +41,7 @@ public class DiaryActivity extends Activity{
     private Button mBtnAdd,
             mBtnQuery,
             mBtnList;
-    private  final List<String> dd=new ArrayList<String>();;
+    private  final List<String> dd=new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
