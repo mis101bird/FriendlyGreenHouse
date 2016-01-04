@@ -46,7 +46,7 @@ public class DiaryActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_diary);
 
         SQLiteHandler friendDbOpenHelper =
                 new SQLiteHandler(getApplicationContext(), DB_FILE, null, 1);
@@ -90,6 +90,7 @@ public class DiaryActivity extends Activity{
         return true;
     }
 */
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
