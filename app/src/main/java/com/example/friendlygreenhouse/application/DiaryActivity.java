@@ -12,6 +12,5 @@ public class DiaryActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-        
     }
 }
