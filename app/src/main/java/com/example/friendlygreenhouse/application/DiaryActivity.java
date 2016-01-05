@@ -42,7 +42,7 @@ public class DiaryActivity extends Activity{
             mBtnQuery,
             mBtnList;
     private  final List<String> dd=new ArrayList<String>();
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
