@@ -46,7 +46,7 @@ public class DiaryActivity extends Activity{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary);
+        setContentView(R.layout.activity_diary2);
 
         SQLiteHandler friendDbOpenHelper =
                 new SQLiteHandler(getApplicationContext(), DB_FILE, null, 1);
@@ -81,7 +81,7 @@ public class DiaryActivity extends Activity{
         mBtnQuery.setOnClickListener(btnQueryOnClick);
         mBtnList.setOnClickListener(btnListOnClick);
 
-
+/*
         Cursor c = mFriendDb.query(true, DB_TABLE, new String[]{"name", "sex",
                 "address"}, 	null, null, null, null, null, null);
 
@@ -107,7 +107,7 @@ public class DiaryActivity extends Activity{
         ListAdapter ad = new ArrayAdapter(this, android.R.layout.simple_list_item_1,dd);
 
         list.setAdapter(ad);
-
+*/
     }
 /*
     @Override
