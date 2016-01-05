@@ -121,14 +121,5 @@ public class DictionaryActivity extends Activity {
 
         list.setOnItemClickListener(new ListListener(dictionaryData, this));
 
-
-
-
-
-
-
-
-
-
     }
 }
