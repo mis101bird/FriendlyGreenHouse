@@ -28,7 +28,7 @@ import java.util.List;
 /**
  * Created by ser on 2015/12/31.
  */
-public class DiaryActivity extends Activity{
+public class DiaryActivity extends Activity {
     private static final String DB_FILE = "friends.db",
             DB_TABLE = "friends";
     private SQLiteDatabase mFriendDb;
@@ -41,8 +41,14 @@ public class DiaryActivity extends Activity{
     private Button mBtnAdd,
             mBtnQuery,
             mBtnList;
-    private  final List<String> dd=new ArrayList<String>();
-    
+
+    private List<String> dd = new ArrayList<String>();
+    private TextView tvDate;
+    private TextView tvTime;
+    private TextView btDate;
+    private TextView btTime;
+    private int mYear, mMonth, mDay, mHour, mMinute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,8 +63,8 @@ public class DiaryActivity extends Activity{
                 "select DISTINCT tbl_name from sqlite_master where tbl_name = '" +
                         DB_TABLE + "'", null);
 
-        if(cursor != null) {
-            if(cursor.getCount() == 0)	// 沒有資料表，要建立一個資料表。
+        if (cursor != null) {
+            if (cursor.getCount() == 0)    // 沒有資料表，要建立一個資料表。
                 mFriendDb.execSQL("CREATE TABLE " + DB_TABLE + " (" +
                         "_id INTEGER PRIMARY KEY," +
                         "name TEXT NOT NULL," +
@@ -68,46 +74,70 @@ public class DiaryActivity extends Activity{
             cursor.close();
         }
 
-        mEdtName = (EditText)findViewById(R.id.edtName);
-        mEdtSex = (EditText)findViewById(R.id.edtSex);
-        mEdtAddr = (EditText)findViewById(R.id.edtAddr);
-        mEdtList = (EditText)findViewById(R.id.edtList);
+        mEdtName = (EditText) findViewById(R.id.edtName);
+        mEdtSex = (EditText) findViewById(R.id.edtSex);
+        mEdtAddr = (EditText) findViewById(R.id.edtAddr);
+        mEdtList = (EditText) findViewById(R.id.edtList);
 
-        mBtnAdd = (Button)findViewById(R.id.btnAdd);
-        mBtnQuery = (Button)findViewById(R.id.btnQuery);
-        mBtnList = (Button)findViewById(R.id.btnList);
+        mBtnAdd = (Button) findViewById(R.id.btnAdd);
+        mBtnQuery = (Button) findViewById(R.id.btnQuery);
+        mBtnList = (Button) findViewById(R.id.btnList);
 
         mBtnAdd.setOnClickListener(btnAddOnClick);
         mBtnQuery.setOnClickListener(btnQueryOnClick);
         mBtnList.setOnClickListener(btnListOnClick);
 
-/*
-        Cursor c = mFriendDb.query(true, DB_TABLE, new String[]{"name", "sex",
-                "address"}, 	null, null, null, null, null, null);
+        tvDate = (TextView) findViewById(R.id.edtSex);
+        //tvTime = (TextView) findViewById(R.id.tvTime);
 
-        if (c == null)
-            return;
+        //btDate = (Button) findViewById(R.id.edtSex);
+        //btTime = (Button) findViewById(R.id.btTime);
 
-        if (c.getCount() == 0) {
-            mEdtList.setText("");
-            Toast.makeText(DiaryActivity.this, "沒有資料", Toast.LENGTH_LONG)
-                    .show();
-        }
-        else {
-            c.moveToFirst();
-            dd.add(c.getString(0) + c.getString(1)  + c.getString(2));
+        tvDate.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });
 
-            while (c.moveToNext())
-                dd.add(c.getString(0) + c.getString(1)  +
-                        c.getString(2));
-        }
+    }
 
-        ListView list=(ListView) findViewById(R.id.listView2);
+    public void showDatePickerDialog() {
+        // 設定初始日期
+        final Calendar c = Calendar.getInstance();
+        mYear = c.get(Calendar.YEAR);
+        mMonth = c.get(Calendar.MONTH);
+        mDay = c.get(Calendar.DAY_OF_MONTH);
 
-        ListAdapter ad = new ArrayAdapter(this, android.R.layout.simple_list_item_1,dd);
+        // 跳出日期選擇器
+        DatePickerDialog dpd = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        // 完成選擇，顯示日期
+                        tvDate.setText(year + "-" + (monthOfYear + 1) + "-"
+                                + dayOfMonth);
 
-        list.setAdapter(ad);
-*/
+                    }
+                }, mYear, mMonth, mDay);
+        dpd.show();
+    }
+
+    public void showTimePickerDialog() {
+        // 設定初始時間
+        final Calendar c = Calendar.getInstance();
+        mHour = c.get(Calendar.HOUR_OF_DAY);
+        mMinute = c.get(Calendar.MINUTE);
+
+        // 跳出時間選擇器
+        TimePickerDialog tpd = new TimePickerDialog(this,
+                new TimePickerDialog.OnTimeSetListener() {
+                    public void onTimeSet(TimePicker view, int hourOfDay,
+                                          int minute) {
+                        // 完成選擇，顯示時間
+                        tvTime.setText(hourOfDay + ":" + minute);
+                    }
+                }, mHour, mMinute, false);
+        tpd.show();
     }
 /*
     @Override
@@ -181,7 +211,7 @@ public class DiaryActivity extends Activity{
                         .show();
             } else {
                 c.moveToFirst();
-                mEdtList.setText(c.getString(0) + c.getString(1)  + c.getString(2));
+                mEdtList.setText(c.getString(0) + c.getString(1) + c.getString(2));
 
                 while (c.moveToNext())
                     mEdtList.append("\n" + c.getString(0) + c.getString(1) +
@@ -195,7 +225,7 @@ public class DiaryActivity extends Activity{
         public void onClick(View v) {
             // TODO Auto-generated method stub
             Cursor c = mFriendDb.query(true, DB_TABLE, new String[]{"name", "sex",
-                    "address"}, 	null, null, null, null, null, null);
+                    "address"}, null, null, null, null, null, null);
 
             if (c == null)
                 return;
@@ -204,14 +234,15 @@ public class DiaryActivity extends Activity{
                 mEdtList.setText("");
                 Toast.makeText(DiaryActivity.this, "沒有資料", Toast.LENGTH_LONG)
                         .show();
-            }
-            else {
+            } else {
+                int i = 1;
                 c.moveToFirst();
-                mEdtList.setText(c.getString(0) + c.getString(1)  + c.getString(2));
+                mEdtList.setText("(" + i + ")" + "\n" + c.getString(0) + "\n" + c.getString(1) + "\n" + c.getString(2));
 
-                while (c.moveToNext())
-                    mEdtList.append("\n" + c.getString(0) + c.getString(1)  +
-                            c.getString(2));
+                while (c.moveToNext()) {
+                    i++;
+                    mEdtList.append("\n" + "(" + i + ")" + "\n" + c.getString(0) + "\n" + c.getString(1) + "\n" + c.getString(2));
+                }
             }
         }
     };

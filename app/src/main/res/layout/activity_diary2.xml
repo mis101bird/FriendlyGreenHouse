@@ -43,6 +43,7 @@
 
         <EditText
             android:id="@+id/edtSex"
+            android:focusable="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -99,6 +100,7 @@
 
     <EditText
         android:id="@+id/edtList"
+        android:focusable="false"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
