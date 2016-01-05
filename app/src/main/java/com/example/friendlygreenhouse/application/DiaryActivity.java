@@ -210,12 +210,14 @@ public class DiaryActivity extends Activity {
                 Toast.makeText(DiaryActivity.this, "沒有這筆資料", Toast.LENGTH_LONG)
                         .show();
             } else {
+                int i = 1;
                 c.moveToFirst();
-                mEdtList.setText(c.getString(0) + c.getString(1) + c.getString(2));
+                mEdtList.setText("(" + i + ")" + "\n" + c.getString(0) + "\n" + c.getString(1) + "\n" + c.getString(2));
 
-                while (c.moveToNext())
-                    mEdtList.append("\n" + c.getString(0) + c.getString(1) +
-                            c.getString(2));
+                while (c.moveToNext()) {
+                    i++;
+                    mEdtList.append("\n" + "(" + i + ")" + "\n" + c.getString(0) + "\n" + c.getString(1) + "\n" + c.getString(2));
+                }
             }
         }
     };
